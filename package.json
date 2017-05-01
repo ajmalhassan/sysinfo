@@ -1,12 +1,14 @@
 {
-  "name": "electron-quick-start",
+  "name": "sysinfo",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron main.js",
+    "package": "asar pack sysinfo-win32-x64/resources/app sysinfo-win32-x64/resources/app.asar",
+    "build": "electron-packager . sysinfo"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "",
   "keywords": [
     "Electron",
     "quick",
@@ -14,9 +16,12 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Ajmal Hassan",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1"
-  }
+    "asar": "^0.13.0",
+    "electron": "^1.4.1",
+    "electron-packager": "^8.6.0"
+  },
+  "dependencies": {}
 }

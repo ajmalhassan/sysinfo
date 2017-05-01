@@ -2,18 +2,110 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Sys info</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"></link>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h3></h3>
     <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="container">
+    	<div class="jumbotron">
+	  		<h3>System info<small> by <span style="color:aquamarine"> Ajmal Hassan</span></small></h3>
+	  		<div class="row">
+					<div class="col-sm-4">
+	    			<div class="thumbnail">
+	      			<div class="caption">
+								<h3><small id="Memory"></small></h3>
+								<canvas id="myChart" width="100" height="100"></canvas>
+	      			</div>
+	    			</div>
+	  			</div>
+					<div class="col-sm-4">
+	    			<div class="thumbnail">
+	      			<div class="caption">
+								<h3><small>Processor Architecture</small></h3>
+								<p><script>document.write(process.arch)</script></p>
+	      			</div>
+	    			</div>
+	    			<div class="thumbnail">
+	      			<div class="caption">
+								<h3><small>Platform</small></h3>
+								<p><script>document.write(process.platform)</script></p>
+	      			</div>
+	    			</div>
+	  			</div>
+					<div class="col-sm-4">
+	    			<div class="thumbnail">
+	      			<div class="caption">
+								<h3><small>Processor Name</small></h3>
+								<p><script>document.write(process.env.PROCESSOR_IDENTIFIER)</script></p>
+	      			</div>
+	    			</div>
+	  			</div>
+				</div>
+   		</div>
+    </div>
   </body>
 
-  <script>
-    // You can also require other files to run in this process
+<script src="js/chart.min.js"></script>
+<script>
+var ctx = document.getElementById("myChart");
+	var total_mem = ((process.getSystemMemoryInfo().total/1024)/1024).toPrecision(3);
+	var mem_title = document.getElementById("Memory").innerHTML = `Memory Usage(out of ${total_mem} GB)`;
+	var free_mem = ((process.getSystemMemoryInfo().free/1024)/1024).toPrecision(3);
+	var used_mem = (total_mem - free_mem).toPrecision(3);
+	var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+    labels: [
+        `${used_mem} GB Used`,
+        `${free_mem} GB Free`
+    ],
+    datasets: [
+        {
+            data: [used_mem, free_mem],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB"
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB"
+            ],
+						borderWidth: 0
+        }]
+},
+
+});
+
+setInterval(function(){
+	var total_mem = ((process.getSystemMemoryInfo().total/1024)/1024).toPrecision(3);;
+	var free_mem = ((process.getSystemMemoryInfo().free/1024)/1024).toPrecision(3);;
+	var used_mem = (total_mem - free_mem).toPrecision(3)
+	var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+    labels: [
+        `${used_mem} GB Used`,
+        `${free_mem} GB Free`
+    ],
+    datasets: [
+        {
+            data: [used_mem, free_mem],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB"
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB"
+            ],
+						borderWidth: 0
+        }]
+},
+
+});
+},5000);
     require('./renderer.js')
   </script>
 </html>
