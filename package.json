@@ -8,7 +8,7 @@
     "package": "asar pack sysinfo-win32-x64/resources/app sysinfo-win32-x64/resources/app.asar",
     "build": "electron-packager . sysinfo"
   },
-  "repository": "",
+  "repository": "https://github.com/ajmalhassan/sysinfo",
   "keywords": [
     "Electron",
     "quick",
